@@ -20,10 +20,9 @@ char *buffer;  
 if(  (fp =fopen("sound.wav","w")) < 0)
 printf("open sound.wav fial\n");
 /* Open PCM device for recording (capture). */  
-rc = snd_pcm_open(&handle, "default",  
-SND_PCM_STREAM_CAPTURE, 0);  
+rc = snd_pcm_open(&handle, "default",SND_PCM_STREAM_CAPTURE, 0);  
 if (rc < 0) {  
-fprintf(stderr,  "unable to open pcm device: %s/n",  snd_strerror(rc));  
+fprintf(stderr,"unable to open pcm device: %s/n",  snd_strerror(rc));  
 exit(1);  
 }  
 /* Allocate a hardware parameters object. */  
@@ -86,22 +85,17 @@ snd_pcm_hw_params_get_channels(params, &val);  
 printf("channels = %d\n", val);  
 snd_pcm_hw_params_get_rate(params, &val, &dir);  
 printf("rate = %d bps\n", val);  
-snd_pcm_hw_params_get_period_time(params,  
-&val, &dir);  
+snd_pcm_hw_params_get_period_time(params,&val, &dir);  
 printf("period time = %d us\n", val);  
-snd_pcm_hw_params_get_period_size(params,  
-&frames, &dir);  
+snd_pcm_hw_params_get_period_size(params,&frames, &dir);  
 printf("period size = %d frames\n", (int)frames);  
-snd_pcm_hw_params_get_buffer_time(params,  
-&val, &dir);  
+snd_pcm_hw_params_get_buffer_time(params,&val, &dir);  
 printf("buffer time = %d us\n", val);  
-snd_pcm_hw_params_get_buffer_size(params,  
-(snd_pcm_uframes_t *) &val);  
+snd_pcm_hw_params_get_buffer_size(params,(snd_pcm_uframes_t *) &val);  
 printf("buffer size = %d frames\n", val);  
 snd_pcm_hw_params_get_periods(params, &val, &dir);  
 printf("periods per buffer = %d frames\n", val);  
-snd_pcm_hw_params_get_rate_numden(params,  
-&val, &val2);  
+snd_pcm_hw_params_get_rate_numden(params,&val, &val2);  
 printf("exact rate = %d/%d bps\n", val, val2);  
 val = snd_pcm_hw_params_get_sbits(params);  
 printf("significant bits = %d\n", val);  
@@ -119,14 +113,14 @@ val = snd_pcm_hw_params_is_joint_duplex(params);  
 printf("is joint duplex = %d\n", val);  
 val = snd_pcm_hw_params_can_overrange(params);  
 printf("can overrange = %d\n", val);  
-val = snd_pcm_hw_params_can_mmap_sample_resolution(params);  
-printf("can mmap = %d\n", val);  
-val = snd_pcm_hw_params_can_pause(params);  
-printf("can pause = %d\n", val);  
-val = snd_pcm_hw_params_can_resume(params);  
-printf("can resume = %d\n", val);  
-val = snd_pcm_hw_params_can_sync_start(params);  
-printf("can sync start = %d\n", val);  
+val = snd_pcm_hw_params_can_mmap_sample_resolution(params);
+printf("can mmap = %d\n", val);
+val = snd_pcm_hw_params_can_pause(params);
+printf("can pause = %d\n", val);
+val = snd_pcm_hw_params_can_resume(params);
+printf("can resume = %d\n", val);
+val = snd_pcm_hw_params_can_sync_start(params);
+printf("can sync start = %d\n", val);
 /*******************************************************************/
 snd_pcm_drain(handle);  
 snd_pcm_close(handle); 
