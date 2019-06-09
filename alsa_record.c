@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <alsa/asoundlib.h>
 
-main (int argc, char *argv[])
+int main (int argc, char *argv[])
 {
   int i;
   int err;
@@ -90,7 +90,7 @@ main (int argc, char *argv[])
 
   fprintf(stdout, "audio interface prepared\n");
 
-  buffer = malloc(128 * snd_pcm_format_width(format) / 8 * 2);
+  buffer = (char *)malloc(snd_pcm_format_width(format)*128 / 8 * 2);
 
   fprintf(stdout, "buffer allocated\n");
 
@@ -111,3 +111,4 @@ main (int argc, char *argv[])
   fprintf(stdout, "audio interface closed\n");
 
   exit (0);
+}
