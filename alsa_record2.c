@@ -17,7 +17,7 @@ int main()
    snd_pcm_uframes_t frames;		// snd_pcm_uframes_t 型变量
    char * buffer;		// 一个字符型指针
    FILE * out_fd;		// 一个指向文件的指针
-   out_fd = fopen("out_pcm.wav","wb+");		/* 将流与文件之间的关系建立起来，文
+   out_fd = fopen("out_pcm.raw","wb+");		/* 将流与文件之间的关系建立起来，文
 											   件名为 out_pcm.raw，w是以文本方式
 											   打开文件，wb是二进制方式打开文件wb+
 											   读写打开或建立一个二进制文件，允许读和写。*/
@@ -33,7 +33,7 @@ int main()
    }
    /* allocate a hardware parameters object */
    // 分配一个硬件变量对象
-   snd_pcm_hw_params_alloca(¶ms);
+   snd_pcm_hw_params_alloca(&params);
    /* fill it with default values. */
    // 按照默认设置对硬件对象进行设置
    snd_pcm_hw_params_any(handle,params);
@@ -47,10 +47,10 @@ int main()
                                 SND_PCM_FORMAT_S16_LE);
    /* two channels(stereo) */
    // 设置双声道立体声
-   snd_pcm_hw_params_set_channels(handle,params,6);
+   snd_pcm_hw_params_set_channels(handle,params,2);
    /* sampling rate */
    // 设置采样率
-   val = 44100;
+   val = 16000;
    snd_pcm_hw_params_set_rate_near(handle,params,&val,&dir);
    /* set period size */
    // 周期长度（帧数）
