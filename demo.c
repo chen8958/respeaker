@@ -15,8 +15,12 @@ int main(int argc, char const *argv[]) {
     int numChannels = audioFile.getNumChannels();
     bool isMono = audioFile.isMono();
     bool isStereo = audioFile.isStereo();
-
-// or, just use this quick shortcut to print a summary to the console
+    audioFile.setNumChannels(6);
+    audioFile.setNumSamplesPerChannel(20000);//chunck 0.5s
+    // or, just use this quick shortcut to print a summary to the console
     audioFile.printSummary();
+
+    AudioFile<double>::AudioBuffer buffer;
+
     return 0;
 }
