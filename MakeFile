@@ -2,8 +2,8 @@ CC:=g++
 OBJS = AudioFile
 TARGET=demo
 all:$(TARGET)
-	
-$(OBJS).o: $(OBJS).c
+
+$(OBJS).o: $(OBJS).cpp
 	$(CC) -c -o $@ $<
 
 demo:$(OBJS).o demo.c
