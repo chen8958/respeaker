@@ -1,0 +1,14 @@
+CC:=g++
+OBJS = AudioFile
+TARGET=demo
+all:$(TARGET)
+	
+$(OBJS).o: $(OBJS).c
+	$(CC) -c -o $@ $<
+
+demo:$(OBJS).o demo.c
+	$(CC) -o demo $^
+
+clean:
+	rm *.o
+	rm $(TARGETS)
