@@ -100,9 +100,9 @@ int main(int argc, char **argv) {
 	buff = (char *) malloc(buff_size);
 
 	snd_pcm_hw_params_get_period_time(params, &tmp, NULL);
-
+	printf("tmp = %d\n",tmp);
 	for (loops = (seconds * 1000000) / tmp; loops > 0; loops--) {
-
+		printf("loop = %d\n",loop);
 		if (pcm = read(0, buff, buff_size) == 0) {
 			printf("Early end of file.\n");
 			return 0;
