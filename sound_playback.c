@@ -6,7 +6,7 @@
  *
  * Usage:
  * $ ./play <sample_rate> <channels> <seconds> < <file>
- * 
+ *
  * Examples:
  * $ ./play 44100 2 5 < /dev/urandom
  * $ ./play 22050 1 8 < /path/to/file.wav
@@ -28,7 +28,7 @@
 
 int main(int argc, char **argv) {
 	unsigned int pcm, tmp, dir;
-	int rate, channels, seconds;
+	unsigned int rate, channels, seconds;
 	snd_pcm_t *pcm_handle;
 	snd_pcm_hw_params_t *params;
 	snd_pcm_uframes_t frames;
