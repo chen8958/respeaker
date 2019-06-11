@@ -1,14 +1,14 @@
 import wave
 import os
 import numpy as np
-from scipy.fftpack import fft,ifft
+#from scipy.fftpack import fft,ifft
 import math
 import cmath
 
 def record():
     os.system("arecord -Dhw:0,0 -f S16_LE -r 16000 -c 6 -d 1 hello.wav");
 def readwav():
-    f=wave.open("300.wav",'rb');
+    f=wave.open("hello.wav",'rb');
     params=f.getparams();
     original_data_string=f.readframes(params[3]);
     original_data=np.fromstring(original_data_string,dtype=np.short);
@@ -25,7 +25,7 @@ def das(data,fs,MicPos):
     df=fs/NFFT;
     fft_x=np.zeros((data.shape[0],NFFT),dtype=np.complex_);
     for i in range(MicNum):
-        fft_x[i,:]=fft(data[i,:],1024);
+        fft_x[i,:]=np.fft.fft(data[i,:],1024);
     print(fft_x);
     print(fft_x.shape);
     angel_curve=np.zeros(360);
@@ -42,7 +42,7 @@ def das(data,fs,MicPos):
             angel_curve[deg]=angel_curve[deg]+abs(np.dot(w,fft_x[:,ff]));
     print(np.argmax(angel_curve));
 def main():
-    record();
+    #record();
     MicPos=(1/100)*np.array([[4.5*math.cos(120/180*math.pi),4.5*math.cos(60/180*math.pi),4.5,4.5*math.cos(-60/180*math.pi),4.5*math.cos(-120/180*math.pi),-4.5],[4.5*math.sin(120/180*math.pi),4.5*math.sin(60/180*math.pi),0,4.5*math.sin(-60/180*math.pi),4.5*math.sin(-120/180*math.pi),0],[0,0,0,0,0,0]]);
     print(MicPos);
     print(MicPos.shape);
