@@ -20,7 +20,7 @@ class MySocket:
         if sock is None:
             try:
                 self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
-                self.sock.connect(('192.168.1.190', 6666));
+                self.sock.connect(('127.0.0.1', 6666));
             except socket.error as msg:
                 print (msg);
                 sys.exit(1);
@@ -63,9 +63,9 @@ def socket_client():
 '''
 def main():
     skt_send = MySocket();
-    while True:
-        recordwav();
-        skt_send.send_file();
+    #while True:
+    recordwav();
+    skt_send.send_file();
 
 if __name__ == '__main__':
     main();
