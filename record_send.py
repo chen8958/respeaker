@@ -27,7 +27,7 @@ class MySocket:
         else:
             self.sock = sock;
     def send_file(self):
-        filepath = sounddata;
+        filepath = "sounddata.wav";
         if os.path.isfile(filepath):
             fileinfo_size=struct.calcsize('128sl');
             fhead = struct.pack('128sl',bytes(os.path.basename(filepath).encode('utf-8')),os.stat(filepath).st_size);
