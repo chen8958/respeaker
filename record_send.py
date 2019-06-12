@@ -27,7 +27,7 @@ class MySocket:
         else:
             self.sock = sock;
     def send_file(self):
-        filepath = input('please input file path: ')
+        filepath = sounddata;
         if os.path.isfile(filepath):
             fileinfo_size=struct.calcsize('128sl');
             fhead = struct.pack('128sl',bytes(os.path.basename(filepath).encode('utf-8')),os.stat(filepath).st_size);
@@ -42,6 +42,8 @@ class MySocket:
             fo.close();
             self.sock.close();
 
+def recordwav():
+    os.system("arecord -Dhw:0,0 -f S16_LE -r 16000 -c 6 -d 1 sounddata.wav");
 '''
 def socket_client():
     try:
@@ -61,7 +63,9 @@ def socket_client():
 '''
 def main():
     skt_send = MySocket();
-    skt_send.send_file();
+    while True:
+        recordwav();
+        skt_send.send_file();
 
 if __name__ == '__main__':
     main();
