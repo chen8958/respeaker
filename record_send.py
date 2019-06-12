@@ -40,7 +40,7 @@ class MySocket:
                     break;
                 self.sock.send(filedata);
             fo.close();
-            self.sock.close();
+            #self.sock.close();
 
 def recordwav():
     os.system("arecord -Dhw:0,0 -f S16_LE -r 16000 -c 6 -d 1 sounddata.wav");
@@ -64,7 +64,7 @@ def socket_client():
 def main():
     skt_send = MySocket();
     #while True:
-    recordwav();
+    #recordwav();
     skt_send.send_file();
 
 if __name__ == '__main__':
