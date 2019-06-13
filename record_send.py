@@ -45,7 +45,7 @@ class MySocket:
                 self.sock.send(filedata);
             fo.close();
             #self.sock.close();
-    def getpos():
+    def getpos(self):
         print("server reply = {}".format(self.sock.recv(1024)));
 
 
