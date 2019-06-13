@@ -37,7 +37,8 @@ class MySocket:
 def file(conn,addr):
     fileinfo_size=struct.calcsize('128sl');
     buf = conn.recv(fileinfo_size);
-    print(size(buf))
+    print(len(buf));
+    print(buf);
     filename,filesize = struct.unpack('128sl',buf);
     filename_f = filename.decode().strip('\00');
     filename_f = "new_"+filename_f;

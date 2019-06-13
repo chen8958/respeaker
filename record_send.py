@@ -31,6 +31,8 @@ class MySocket:
         if os.path.isfile(filepath):
             fileinfo_size=struct.calcsize('128sl');
             fhead = struct.pack('128sl',bytes(os.path.basename(filepath).encode('utf-8')),os.stat(filepath).st_size);
+            print(len(fhead));
+            print(fhead);
             self.sock.send(fhead);
             print("client, filepath: {}".format([filepath]));
             get= self.sock.recv(1024);
