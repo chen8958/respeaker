@@ -43,6 +43,7 @@ def file(conn,addr):
     print("file name = {}".format(filename_f));
     recvd_size = 0;
     file = open(filename_f,'wb');
+    conn.send("ready");
     print ('stat receiving...');
     while not recvd_size == filesize:
         if filesize - recvd_size > 1024:
@@ -54,6 +55,7 @@ def file(conn,addr):
         file.write(rdata);
     file.close();
     print("receive done");
+
     conn.close();
 '''
 def deal_data(conn, addr):
