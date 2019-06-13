@@ -44,7 +44,11 @@ class MySocket:
                     break;
                 self.sock.send(filedata);
             fo.close();
-            self.sock.close();
+            #self.sock.close();
+    def getpos():
+        print("server reply = {}".format(self.sock.recv(1024)));
+
+
 
 def recordwav():
     os.system("arecord -Dhw:0,0 -f S16_LE -r 16000 -c 6 -d 1 sounddata.wav");
@@ -67,9 +71,10 @@ def socket_client():
 '''
 def main():
     skt_send = MySocket();
-    #while True:
-    #recordwav();
-    skt_send.send_file();
+    while True:
+        recordwav();
+        skt_send.send_file();
+        skt_send.getpos();
 
 if __name__ == '__main__':
     main();

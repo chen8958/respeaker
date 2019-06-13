@@ -31,8 +31,14 @@ class MySocket:
     def start(self):
         print("wait for connect..........");
         conn, addr = self.sock.accept()
-        t = threading.Thread(target=file, args=(conn, addr))
+        t = threading.Thread(target=start, args=(conn, addr))
         t.start();
+def start(conn,addr):
+    while True:
+        file(conn,addr);
+        reply_pos(conn,addr);
+def reply_pos(conn,addr):
+    conn.send("pos = ");
 
 def file(conn,addr):
     fileinfo_size=struct.calcsize('128sQ');
@@ -59,7 +65,7 @@ def file(conn,addr):
     file.close();
     print("receive done");
 
-    conn.close();
+    #conn.close();
 '''
 def deal_data(conn, addr):
     print ('Accept new connection from {0}'.format(addr));
