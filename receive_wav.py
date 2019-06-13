@@ -13,7 +13,12 @@ import threading
 import time
 import sys
 import time,struct,os
-
+import wave
+import numpy as np
+from respeaker import das,readwav
+#from scipy.fftpack import fft,ifft
+import math
+import cmath
 
 class MySocket:
     def __init__(self,sock=None):
@@ -36,9 +41,18 @@ class MySocket:
 def start(conn,addr):
     while True:
         file(conn,addr);
-        reply_pos(conn,addr);
-def reply_pos(conn,addr):
-    conn.send("pos = ");
+        pos = location();
+        print("location = {}".format(pos));
+        reply_pos(conn,addr,pos);
+
+def location():
+    MicPos=(1/100)*np.array([[4.5*math.cos(120/180*math.pi),4.5*math.cos(60/180*math.pi),4.5,4.5*math.cos(-60/180*math.pi),4.5*math.cos(-120/180*math.pi),-4.5],[4.5*math.sin(120/180*math.pi),4.5*math.sin(60/180*math.pi),0,4.5*math.sin(-60/180*math.pi),4.5*math.sin(-120/180*math.pi),0],[0,0,0,0,0,0]]);
+    data,fs=readwav();
+    max = das(data,fs,MicPos);
+    return max
+
+def reply_pos(conn,addr,pos):
+    conn.send("pos = {}".format(max));
 
 def file(conn,addr):
     fileinfo_size=struct.calcsize('128sQ');
@@ -48,7 +62,7 @@ def file(conn,addr):
     #l in respeaker is 4 byte but 4 byte in notebook
     filename,filesize = struct.unpack('128sQ',buf);
     filename_f = filename.decode().strip('\00');
-    filename_f = "new_"+filename_f;
+    #filename_f = "new_"+filename_f;
     print("file name = {}".format(filename_f));
     recvd_size = 0;
     file = open(filename_f,'wb');
