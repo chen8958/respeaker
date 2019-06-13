@@ -39,6 +39,7 @@ def file(conn,addr):
     buf = conn.recv(fileinfo_size);
     print(len(buf));
     print(buf);
+    #l in respeaker is 4 byte but 4 byte in notebook
     filename,filesize = struct.unpack('128sQ',buf);
     filename_f = filename.decode().strip('\00');
     filename_f = "new_"+filename_f;
