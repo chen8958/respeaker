@@ -1,7 +1,7 @@
 import wave
 import os
 import numpy as np
-from scipy.fftpack import fft,ifft
+#from scipy.fftpack import fft,ifft
 import math
 import cmath
 #import matplotlib as plt
@@ -9,14 +9,14 @@ import cmath
 def record():
     os.system("arecord -Dhw:0,0 -f S16_LE -r 16000 -c 6 -d 1 sounddata.wav");
 def readwav():
-    f=wave.open("120.wav",'rb');
+    f=wave.open("sounddata.wav",'rb');
     params=f.getparams();
     original_data_string=f.readframes(params[3]);
     original_data=np.fromstring(original_data_string,dtype=np.short);
     original_data.shape=-1,params[0];
     original_data=original_data.T;
-    print(original_data.shape);
-    print(params[2]);
+    #print(original_data.shape);
+    #print(params[2]);
     return original_data,params[2];
 def das(data,fs,MicPos):
     MicNum = data.shape[0];
@@ -26,9 +26,9 @@ def das(data,fs,MicPos):
     df=fs/NFFT;
     fft_x=np.zeros((data.shape[0],NFFT),dtype=np.complex_);
     for i in range(MicNum):
-        fft_x[i,:]=fft(data[i,:],1024);
-    print(fft_x);
-    print(fft_x.shape);
+        fft_x[i,:]=np.fft.fft(data[i,:],1024);
+    #print(fft_x);
+    #print(fft_x.shape);
     angel_curve=np.zeros(360);
     c=343;
 
@@ -41,8 +41,8 @@ def das(data,fs,MicPos):
                 a[MicNo]=cmath.exp(complex(0,1)*k*np.dot(kappa,MicPos[:,MicNo]));
             w=np.conj(a);
             angel_curve[deg]=angel_curve[deg]+abs(np.dot(w,fft_x[:,ff]));
-    print(angel_curve)
-    print(np.argmax(angel_curve));
+    #print(angel_curve)
+    #print(np.argmax(angel_curve));
     return(np.argmax(angel_curve));
 def main():
     #record();

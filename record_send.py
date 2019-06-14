@@ -20,7 +20,7 @@ class MySocket:
         if sock is None:
             try:
                 self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
-                self.sock.connect(('192.168.1.190', 6666));
+                self.sock.connect(('192.168.43.163', 6666));
             except socket.error as msg:
                 print (msg);
                 sys.exit(1);

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding=utf-8 -*-
 
 
@@ -26,7 +26,7 @@ class MySocket:
             try:
                 self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
                 self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-                self.sock.bind(('192.168.1.190', 6666))
+                self.sock.bind(('192.168.43.163', 6666))
                 self.sock.listen(10)
             except socket.error as msg:
                 print (msg);
@@ -52,21 +52,21 @@ def location():
     return max
 
 def reply_pos(conn,addr,pos):
-    conn.send("pos = {}".format(max));
+    conn.send("pos = {}".format(max).encode());
 
 def file(conn,addr):
     fileinfo_size=struct.calcsize('128sQ');
     buf = conn.recv(fileinfo_size);
-    print(len(buf));
-    print(buf);
+    #print(len(buf));
+    #print(buf);
     #l in respeaker is 4 byte but 4 byte in notebook
     filename,filesize = struct.unpack('128sQ',buf);
     filename_f = filename.decode().strip('\00');
     #filename_f = "new_"+filename_f;
-    print("file name = {}".format(filename_f));
+    #print("file name = {}".format(filename_f));
     recvd_size = 0;
     file = open(filename_f,'wb');
-    conn.send("ready");
+    conn.send("ready".encode());
     print ('stat receiving...');
     while not recvd_size == filesize:
         if filesize - recvd_size > 1024:
